@@ -1,10 +1,13 @@
+/**
+ * @author Administrator
+ */
 public class Car {
-    private int x;//巡逻车坐标
+    private int x;
     private int y;
     private static int max_x;
     private static int max_y;
-    private String direction;//巡逻车当前方向
-    private static final String arrays = "ESWN";//指定方向的字符串
+    private String direction;
+    private static final String arrays = "ESWN";
 
     public Car() {
     }
@@ -14,27 +17,33 @@ public class Car {
         this.y = y;
         this.direction = direction;
     }
-    //改变方向的方法
+
+    /**改变方向的方法
+     *
+     * @param LR
+     */
     public void changeDir(String LR){
-        int positon = arrays.indexOf(direction);//当前方向在数组中的位置
+        int positon = arrays.indexOf(direction);
         int index;//改变方向后的索引
-       // System.out.println("position is:"+positon);
-        if (LR.equalsIgnoreCase("R")){
+        if ("R".equalsIgnoreCase(LR)){
             positon++;
         }
-        if (LR.equalsIgnoreCase("L")){
+        if ("L".equalsIgnoreCase(LR)){
             positon=positon+3;
         }
         index = positon % 4;
         direction = String.valueOf(arrays.charAt(index));
     }
-    //输入M后执行动作（视方向而定）
+
+    /**输入M后执行动作（视方向而定）
+     *
+     */
     public void move(){
-        if (direction.equalsIgnoreCase("E")){
+        if ("E".equalsIgnoreCase(direction)){
             x++;
-        }else if (direction.equalsIgnoreCase("W")){
+        }else if ("W".equalsIgnoreCase(direction)){
             x--;
-        }else if (direction.equalsIgnoreCase("S")){
+        }else if ("S".equalsIgnoreCase(direction)){
             y--;
         }else {
             y++;

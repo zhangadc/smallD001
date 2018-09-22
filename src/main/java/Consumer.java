@@ -1,23 +1,23 @@
-/**
- * @Auther: Administrator
- * @Date: 2018/9/22 08:16
- * @Description:
- */
+
 
 import java.util.concurrent.BlockingQueue;
 
 /**
- * 消费者线程
+ * Consumer
+ * @author Administrator
+ * @Date: 2018/9/22 08:16
+ * @Description:消费者线程
  */
 public class Consumer implements Runnable {
 
     private BlockingQueue<String> queue;
-    private static final int DEFAULT_RANGE_FOR_SLEEP = 1000;
+
 
     public Consumer(BlockingQueue<String> queue) {
         this.queue = queue;
     }
 
+    @Override
     public void run() {
         System.out.println("启动消费者线程！");
 

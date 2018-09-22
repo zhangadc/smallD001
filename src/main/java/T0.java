@@ -1,5 +1,8 @@
 import java.util.concurrent.*;
 
+/**
+ * @author Administrator
+ */
 public class T0 {
 
     public static void main(String[] args) {
@@ -7,8 +10,6 @@ public class T0 {
         ExecutorService threadPool = Executors.newCachedThreadPool();
         for (int i = 0; i < 3; i++) {
             threadPool.execute(new Producer(list));
-
-           // threadPool.shutdown();
         }
         for (int i = 0; i < 5; i++) {
             threadPool.execute(new Consumer(list));

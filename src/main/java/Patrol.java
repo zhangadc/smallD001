@@ -2,24 +2,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * @author Administrator
+ */
 public class Patrol {
     public static void main(String[] args) {
         //初始化一队机器人漫游车
         Scanner sc = new Scanner(System.in);
-        List<Car> carList = new ArrayList<Car>();
+        List<Car> carList = new ArrayList<>();
         System.out.println("(请输入平台右上角坐标)");
         int point = sc.nextInt();
         Car.setMax_x(point / 10);
+
+
+
         Car.setMax_y(point % 10);
-        //sc.close();
+
         Car c1 = new Car(1, 2, "N");
-        //System.out.println(Car.getMax_x()+"   "+Car.getMax_y());
+
         Car c2 = new Car(3, 3, "E");
         carList.add(c1);
         carList.add(c2);
-        // System.out.println(carList.get(0));
 
-        task(carList);//考虑到任务可能不只执行一次，所以指令任务封装成方法，以便多次执行
+//考虑到任务可能不只执行一次，所以指令任务封装成方法，以便多次执行
+        task(carList);
         while (true) {
             System.out.println("输入：1000    退出程序");
             System.out.println("输入其他内容    继续发布指令");
@@ -34,20 +40,22 @@ public class Patrol {
         }
     }
 
-    //封装指令
+
     private static void task(List<Car> carList) {
         Scanner sc2 = new Scanner(System.in);
         System.out.println("(请输入指令,双击Enter结束)");
-        List<String> list1 = new ArrayList<>();//收集多行指令
-        String s = null;
-        while (!(s = sc2.nextLine()).equals("")) {
+        List<String> list1 = new ArrayList<>();
+        String s;
+        while (!"".equals(s = sc2.nextLine())) {
             list1.add(s);
         }
-        //System.out.println(list1);
 
-        //编译指令
+
+        /*
+          hlylgklg
+         */
         Car car = null;
-        outterLoop:
+        otterLoop:
         for (int i = 0; i < list1.size(); i++) {
             //单数行指定小车
             String str = list1.get(i);
@@ -66,11 +74,13 @@ public class Patrol {
             //双数行为行动指令
             else {
                 String[] task = str.split("");
-                for (int j = 0; j < task.length; j++) {
-                    if (task[j].equalsIgnoreCase("L") || "R".equalsIgnoreCase(task[j])) {
-                        car.changeDir(task[j]);
-                    } else if ("M".equalsIgnoreCase(task[j])) {
+                for (String aTask : task) {
+                    if ("L".equalsIgnoreCase(aTask) || "R".equalsIgnoreCase(aTask)) {
+                        assert car != null;
+                        car.changeDir(aTask);
+                    } else if ("M".equalsIgnoreCase(aTask)) {
                         //获得行动前的坐标，发生错误时回档；
+                        assert car != null;
                         int currentX = car.getX();
                         int currentY = car.getY();
                         car.move();
@@ -78,23 +88,23 @@ public class Patrol {
                         if (car.getX() < 0 || car.getX() > Car.getMax_x()) {
                             System.out.println("error:X坐标越界");
                             car.setX(currentX);
-                            break outterLoop;
+                            break otterLoop;
                         }
                         if (car.getY() < 0 || car.getY() > Car.getMax_y()) {
                             System.out.println("error:Y坐标越界");
                             car.setY(currentY);
-                            break outterLoop;
+                            break otterLoop;
                         }
 
                     } else {
                         System.out.println("非法指令");
-                        break outterLoop;
+                        break otterLoop;
                     }
                 }
             }
         }
-        for (int i = 0; i < carList.size(); i++) {
-            System.out.println(carList.get(i));
+        for (Car aCarList : carList) {
+            System.out.println(aCarList);
         }
     }
 }
